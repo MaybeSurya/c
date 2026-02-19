@@ -3,17 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>MaybeSurya | C & C++ Projects</title>
-<meta name="description" content="C and C++ projects by MaybeSurya including search algorithms, calculator and more.">
-<meta name="author" content="MaybeSurya">
-<link rel="canonical" href="https://maybesurya.github.io/c/">
+<meta name="description" content="Dynamic C and C++ project showcase powered by GitHub API.">
 
-<!-- Prism Syntax Highlighting -->
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<!-- Prism -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
 
 <style>
 :root{
@@ -32,27 +34,45 @@ body.light{
 }
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui;}
 body{background:var(--bg);color:var(--text);transition:0.3s;}
-header{text-align:center;padding:50px 20px;}
-.controls{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:10px;
-margin-top:20px;
+.layout{display:flex;min-height:100vh;}
+.sidebar{
+width:220px;
+background:var(--card);
+padding:20px;
+border-right:1px solid var(--border);
+transition:0.3s;
 }
-button, input{
-padding:8px 12px;
+.sidebar h2{margin-bottom:20px;}
+.sidebar button{
+display:block;
+width:100%;
+margin-bottom:10px;
+padding:8px;
+border-radius:6px;
+border:1px solid var(--border);
+background:none;
+color:var(--text);
+cursor:pointer;
+}
+.sidebar button:hover{border-color:var(--accent);}
+.content{flex:1;padding:20px;}
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+input{
+padding:8px;
 border-radius:6px;
 border:1px solid var(--border);
 background:var(--card);
 color:var(--text);
 }
-button:hover{cursor:pointer;border-color:var(--accent);}
-.container{max-width:1100px;margin:auto;padding:20px;}
 .projects{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:20px;margin-top:30px;
+gap:20px;
 }
 .card{
 background:var(--card);
@@ -60,21 +80,29 @@ padding:20px;
 border-radius:12px;
 border:1px solid var(--border);
 transition:0.3s;
+opacity:0;
+transform:translateY(20px);
+animation:fadeIn 0.4s forwards;
 }
-.card:hover{transform:translateY(-5px);border-color:var(--accent);}
-.buttons{display:flex;gap:8px;margin-top:15px;}
+@keyframes fadeIn{
+to{opacity:1;transform:translateY(0);}
+}
+.tag{
+display:inline-block;
+padding:3px 8px;
+border-radius:12px;
+font-size:0.7rem;
+margin-top:5px;
+background:var(--accent);
+color:white;
+}
+.buttons{display:flex;gap:8px;margin-top:10px;}
 .btn{
-flex:1;
-text-align:center;
-padding:6px;
-border-radius:6px;
-font-size:0.85rem;
-text-decoration:none;
-font-weight:600;
+flex:1;text-align:center;
+padding:6px;border-radius:6px;
+font-size:0.8rem;text-decoration:none;
+color:white;background:var(--accent);
 }
-.view{background:var(--accent);color:white;}
-.download{border:1px solid var(--accent);color:var(--accent);}
-.preview{background:#9333ea;color:white;}
 .modal{
 display:none;
 position:fixed;
@@ -87,149 +115,147 @@ padding:20px;
 }
 .modal-content{
 background:#1e1e1e;
-width:90%;
-max-width:900px;
-max-height:80%;
+width:90%;max-width:1000px;
+max-height:85%;
 overflow:auto;
 border-radius:10px;
 padding:20px;
 position:relative;
 }
-.close{
+.close{position:absolute;top:10px;right:15px;font-size:1.5rem;cursor:pointer;color:white;}
+.copy-btn{
 position:absolute;
 top:10px;
-right:15px;
+left:15px;
+background:#2563eb;
+color:white;
+padding:5px 10px;
+border-radius:6px;
+cursor:pointer;
+font-size:0.8rem;
+}
+.mobile-toggle{
+display:none;
 font-size:1.5rem;
 cursor:pointer;
-color:white;
 }
-footer{text-align:center;padding:40px;margin-top:50px;border-top:1px solid var(--border);}
-footer a{color:var(--accent);text-decoration:none;margin:0 8px;}
+@media(max-width:768px){
+.sidebar{position:absolute;left:-220px;top:0;height:100%;z-index:10;}
+.sidebar.active{left:0;}
+.mobile-toggle{display:block;}
+}
 </style>
 </head>
 
 <body>
 
-<header>
-<h1>C & C++ Projects</h1>
-<p>Repository for my C & C++ Codes</p>
-
-<div class="controls">
-<button onclick="filterProjects('all')">All</button>
-<button onclick="filterProjects('c')">C</button>
-<button onclick="filterProjects('cpp')">C++</button>
-<input type="text" id="searchInput" placeholder="Search project..." onkeyup="searchProjects()">
-<button onclick="toggleMode()">Toggle Theme</button>
+<div class="layout">
+<div class="sidebar" id="sidebar">
+<h2><i class="bi bi-code-slash"></i> Projects</h2>
+<button onclick="filterLang('all')">All</button>
+<button onclick="filterLang('c')">C</button>
+<button onclick="filterLang('cpp')">C++</button>
+<button onclick="filterTag('algorithm')">Algorithm</button>
+<button onclick="filterTag('utility')">Utility</button>
+<button onclick="filterTag('game')">Game</button>
+<button onclick="toggleTheme()">Toggle Theme</button>
 </div>
-</header>
 
-<div class="container">
-<div class="projects" id="projectContainer">
+<div class="content">
+<div class="topbar">
+<span class="mobile-toggle" onclick="toggleSidebar()"><i class="bi bi-list"></i></span>
+<input type="text" id="search" placeholder="Search..." onkeyup="searchProjects()">
+</div>
 
-<!-- Calculator -->
-<div class="card" data-lang="c" data-name="calculator">
-<h3>Calculator (C)</h3>
-<div class="buttons">
-<a class="btn view" href="https://github.com/MaybeSurya/c/blob/main/calculator.c" target="_blank">View</a>
-<a class="btn download" href="https://raw.githubusercontent.com/MaybeSurya/c/main/calculator.c" download>Download</a>
-<button class="btn preview" onclick="previewCode('calculator.c','c')">Preview</button>
+<div class="projects" id="projects"></div>
 </div>
 </div>
 
-<!-- Temp -->
-<div class="card" data-lang="cpp" data-name="temperature converter">
-<h3>Temperature Converter (C++)</h3>
-<div class="buttons">
-<a class="btn view" href="https://github.com/MaybeSurya/c/blob/main/tempconv.cpp" target="_blank">View</a>
-<a class="btn download" href="https://raw.githubusercontent.com/MaybeSurya/c/main/tempconv.cpp" download>Download</a>
-<button class="btn preview" onclick="previewCode('tempconv.cpp','cpp')">Preview</button>
-</div>
-</div>
-
-<!-- Random -->
-<div class="card" data-lang="cpp" data-name="random number guesser">
-<h3>Random Number Guesser (C++)</h3>
-<div class="buttons">
-<a class="btn view" href="https://github.com/MaybeSurya/c/blob/main/randomgues.cpp" target="_blank">View</a>
-<a class="btn download" href="https://raw.githubusercontent.com/MaybeSurya/c/main/randomgues.cpp" download>Download</a>
-<button class="btn preview" onclick="previewCode('randomgues.cpp','cpp')">Preview</button>
-</div>
-</div>
-
-<!-- Linear -->
-<div class="card" data-lang="c" data-name="linear search">
-<h3>Linear Search (C)</h3>
-<div class="buttons">
-<a class="btn view" href="https://github.com/MaybeSurya/c/blob/main/linear-search.c" target="_blank">View</a>
-<a class="btn download" href="https://raw.githubusercontent.com/MaybeSurya/c/main/linear-search.c" download>Download</a>
-<button class="btn preview" onclick="previewCode('linear-search.c','c')">Preview</button>
-</div>
-</div>
-
-</div>
-</div>
-
-<!-- Modal -->
-<div class="modal" id="codeModal">
+<div class="modal" id="modal">
 <div class="modal-content">
+<span class="copy-btn" onclick="copyCode()"><i class="bi bi-clipboard"></i> Copy</span>
 <span class="close" onclick="closeModal()">&times;</span>
-<pre><code id="codeBlock" class="language-c"></code></pre>
+<pre class="line-numbers"><code id="codeBlock"></code></pre>
 </div>
 </div>
-
-<footer>
-<a href="https://github.com/MaybeSurya" target="_blank">GitHub</a> |
-<a href="https://linkedin.com/in/MaybeSurya" target="_blank">LinkedIn</a> |
-<a href="https://MaybeSurya.dev" target="_blank">MaybeSurya.dev</a>
-<p>© 2026 MaybeSurya</p>
-</footer>
 
 <script>
-function toggleMode(){
-document.body.classList.toggle("light");
-localStorage.setItem("theme",
-document.body.classList.contains("light")?"light":"dark");
+const repo="MaybeSurya/c";
+let projectData=[];
+
+async function fetchProjects(){
+const res=await fetch(`https://api.github.com/repos/${repo}/contents`);
+const files=await res.json();
+
+files.forEach(file=>{
+if(file.name.endsWith(".c")||file.name.endsWith(".cpp")){
+let lang=file.name.endsWith(".c")?"c":"cpp";
+let tag=detectTag(file.name);
+projectData.push({...file,lang,tag});
 }
-window.onload=function(){
-if(localStorage.getItem("theme")==="light"){
-document.body.classList.add("light");
-}
+});
+renderProjects(projectData);
 }
 
-function filterProjects(lang){
-let cards=document.querySelectorAll(".card");
-cards.forEach(card=>{
-if(lang==="all"||card.dataset.lang===lang){
-card.style.display="block";
-}else{
-card.style.display="none";
+function detectTag(name){
+name=name.toLowerCase();
+if(name.includes("search"))return "algorithm";
+if(name.includes("guess"))return "game";
+if(name.includes("calc")||name.includes("conv"))return "utility";
+return "utility";
 }
+
+function renderProjects(list){
+const container=document.getElementById("projects");
+container.innerHTML="";
+list.forEach(p=>{
+container.innerHTML+=`
+<div class="card" data-lang="${p.lang}" data-tag="${p.tag}" data-name="${p.name}">
+<h3>${p.name}</h3>
+<span class="tag">${p.tag}</span>
+<div class="buttons">
+<a class="btn" href="${p.html_url}" target="_blank"><i class="bi bi-eye"></i></a>
+<a class="btn" href="${p.download_url}" download><i class="bi bi-download"></i></a>
+<button class="btn" onclick="previewCode('${p.download_url}','${p.lang}')"><i class="bi bi-file-earmark-code"></i></button>
+</div>
+</div>`;
 });
 }
 
+function filterLang(lang){
+renderProjects(lang==="all"?projectData:projectData.filter(p=>p.lang===lang));
+}
+function filterTag(tag){
+renderProjects(projectData.filter(p=>p.tag===tag));
+}
 function searchProjects(){
-let input=document.getElementById("searchInput").value.toLowerCase();
-let cards=document.querySelectorAll(".card");
-cards.forEach(card=>{
-let name=card.dataset.name;
-card.style.display=name.includes(input)?"block":"none";
-});
+let val=document.getElementById("search").value.toLowerCase();
+renderProjects(projectData.filter(p=>p.name.toLowerCase().includes(val)));
 }
 
-async function previewCode(filename,lang){
-let url=`https://raw.githubusercontent.com/MaybeSurya/c/main/${filename}`;
-let response=await fetch(url);
-let text=await response.text();
-let codeBlock=document.getElementById("codeBlock");
-codeBlock.textContent=text;
-codeBlock.className=`language-${lang}`;
-Prism.highlightElement(codeBlock);
-document.getElementById("codeModal").style.display="flex";
+async function previewCode(url,lang){
+let res=await fetch(url);
+let text=await res.text();
+let block=document.getElementById("codeBlock");
+block.textContent=text;
+block.className=`language-${lang}`;
+Prism.highlightElement(block);
+document.getElementById("modal").style.display="flex";
 }
 
-function closeModal(){
-document.getElementById("codeModal").style.display="none";
+function closeModal(){document.getElementById("modal").style.display="none";}
+function copyCode(){
+navigator.clipboard.writeText(document.getElementById("codeBlock").textContent);
+alert("Copied!");
 }
+function toggleTheme(){
+document.body.classList.toggle("light");
+}
+function toggleSidebar(){
+document.getElementById("sidebar").classList.toggle("active");
+}
+
+fetchProjects();
 </script>
 
 </body>
