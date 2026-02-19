@@ -6,4 +6,6 @@ Repository for my C &amp; C++ Codes
   <li><a href="https://github.com/MaybeSurya/c/blob/main/tempconv.cpp">Temprature Converter</a> in CPP</li>
   <li><a href="https://github.com/MaybeSurya/c/blob/main/randomgues.cpp">Random Number Guesser</a>in CPP</li>
   <li><a href="https://github.com/MaybeSurya/c/blob/main/linear-search.c">Linear Search</a>in C</li>
+  <li><a href="https://github.com/MaybeSurya/c/blob/main/jump-search.c">Jump Search</a>in C</li>
+  <li><a href="https://github.com/MaybeSurya/c/blob/main/interpolation-search.c">Interpolation Search</a>in C</li>
 </ol>
