@@ -1,251 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ================= SEO ================= -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>MaybeSurya | C & C++ Projects</title>
-    <meta name="description" content="Collection of C and C++ projects including calculator, search algorithms, number guesser and more by MaybeSurya.">
-    <meta name="keywords" content="C projects, C++ projects, calculator in C, search algorithms in C, GitHub projects, MaybeSurya">
-    <meta name="author" content="MaybeSurya">
-    <link rel="canonical" href="https://maybesurya.github.io/c/">
+<title>MaybeSurya | C & C++ Projects</title>
+<meta name="description" content="C and C++ projects by MaybeSurya including search algorithms, calculator and more.">
+<meta name="author" content="MaybeSurya">
+<link rel="canonical" href="https://maybesurya.github.io/c/">
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="MaybeSurya | C & C++ Projects">
-    <meta property="og:description" content="Explore C and C++ projects by MaybeSurya.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://maybesurya.github.io/c/">
+<!-- Prism Syntax Highlighting -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="MaybeSurya | C & C++ Projects">
-    <meta name="twitter:description" content="Explore C and C++ projects by MaybeSurya.">
-
-    <style>
-        :root {
-            --bg: #0f172a;
-            --text: #f1f5f9;
-            --card: #1e293b;
-            --border: #334155;
-            --accent: #38bdf8;
-        }
-
-        body.light {
-            --bg: #f8fafc;
-            --text: #0f172a;
-            --card: #ffffff;
-            --border: #e2e8f0;
-            --accent: #2563eb;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: system-ui, -apple-system, sans-serif;
-        }
-
-        body {
-            background: var(--bg);
-            color: var(--text);
-            transition: 0.3s ease;
-        }
-
-        header {
-            text-align: center;
-            padding: 60px 20px 40px;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        header p {
-            opacity: 0.8;
-        }
-
-        .toggle-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            padding: 8px 14px;
-            border-radius: 20px;
-            cursor: pointer;
-            color: var(--text);
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 20px;
-        }
-
-        .projects {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .card {
-            background: var(--card);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            transition: 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-        }
-
-        .card h3 {
-            margin-bottom: 10px;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .btn {
-            flex: 1;
-            text-align: center;
-            padding: 8px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: 0.2s;
-        }
-
-        .view-btn {
-            background: var(--accent);
-            color: white;
-        }
-
-        .download-btn {
-            border: 1px solid var(--accent);
-            color: var(--accent);
-        }
-
-        .download-btn:hover {
-            background: var(--accent);
-            color: white;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            margin-top: 60px;
-            border-top: 1px solid var(--border);
-            opacity: 0.8;
-        }
-
-        footer a {
-            color: var(--accent);
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
+<style>
+:root{
+--bg:#0f172a;
+--text:#f1f5f9;
+--card:#1e293b;
+--border:#334155;
+--accent:#38bdf8;
+}
+body.light{
+--bg:#f8fafc;
+--text:#0f172a;
+--card:#ffffff;
+--border:#e2e8f0;
+--accent:#2563eb;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui;}
+body{background:var(--bg);color:var(--text);transition:0.3s;}
+header{text-align:center;padding:50px 20px;}
+.controls{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:10px;
+margin-top:20px;
+}
+button, input{
+padding:8px 12px;
+border-radius:6px;
+border:1px solid var(--border);
+background:var(--card);
+color:var(--text);
+}
+button:hover{cursor:pointer;border-color:var(--accent);}
+.container{max-width:1100px;margin:auto;padding:20px;}
+.projects{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;margin-top:30px;
+}
+.card{
+background:var(--card);
+padding:20px;
+border-radius:12px;
+border:1px solid var(--border);
+transition:0.3s;
+}
+.card:hover{transform:translateY(-5px);border-color:var(--accent);}
+.buttons{display:flex;gap:8px;margin-top:15px;}
+.btn{
+flex:1;
+text-align:center;
+padding:6px;
+border-radius:6px;
+font-size:0.85rem;
+text-decoration:none;
+font-weight:600;
+}
+.view{background:var(--accent);color:white;}
+.download{border:1px solid var(--accent);color:var(--accent);}
+.preview{background:#9333ea;color:white;}
+.modal{
+display:none;
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.8);
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+.modal-content{
+background:#1e1e1e;
+width:90%;
+max-width:900px;
+max-height:80%;
+overflow:auto;
+border-radius:10px;
+padding:20px;
+position:relative;
+}
+.close{
+position:absolute;
+top:10px;
+right:15px;
+font-size:1.5rem;
+cursor:pointer;
+color:white;
+}
+footer{text-align:center;padding:40px;margin-top:50px;border-top:1px solid var(--border);}
+footer a{color:var(--accent);text-decoration:none;margin:0 8px;}
+</style>
 </head>
 
 <body>
 
-<button class="toggle-btn" onclick="toggleMode()">Toggle Theme</button>
-
 <header>
-    <h1>C & C++ Projects</h1>
-    <p>Repository for my C & C++ Codes</p>
+<h1>C & C++ Projects</h1>
+<p>Repository for my C & C++ Codes</p>
+
+<div class="controls">
+<button onclick="filterProjects('all')">All</button>
+<button onclick="filterProjects('c')">C</button>
+<button onclick="filterProjects('cpp')">C++</button>
+<input type="text" id="searchInput" placeholder="Search project..." onkeyup="searchProjects()">
+<button onclick="toggleMode()">Toggle Theme</button>
+</div>
 </header>
 
 <div class="container">
-    <div class="projects">
+<div class="projects" id="projectContainer">
 
-        <!-- Project Template -->
-        <div class="card">
-            <h3>Calculator (C)</h3>
-            <div class="buttons">
-                <a class="btn view-btn" href="https://github.com/MaybeSurya/c/blob/main/calculator.c" target="_blank">View</a>
-                <a class="btn download-btn" href="https://raw.githubusercontent.com/MaybeSurya/c/main/calculator.c" download>Download</a>
-            </div>
-        </div>
+<!-- Calculator -->
+<div class="card" data-lang="c" data-name="calculator">
+<h3>Calculator (C)</h3>
+<div class="buttons">
+<a class="btn view" href="https://github.com/MaybeSurya/c/blob/main/calculator.c" target="_blank">View</a>
+<a class="btn download" href="https://raw.githubusercontent.com/MaybeSurya/c/main/calculator.c" download>Download</a>
+<button class="btn preview" onclick="previewCode('calculator.c','c')">Preview</button>
+</div>
+</div>
 
-        <div class="card">
-            <h3>Temperature Converter (C++)</h3>
-            <div class="buttons">
-                <a class="btn view-btn" href="https://github.com/MaybeSurya/c/blob/main/tempconv.cpp" target="_blank">View</a>
-                <a class="btn download-btn" href="https://raw.githubusercontent.com/MaybeSurya/c/main/tempconv.cpp" download>Download</a>
-            </div>
-        </div>
+<!-- Temp -->
+<div class="card" data-lang="cpp" data-name="temperature converter">
+<h3>Temperature Converter (C++)</h3>
+<div class="buttons">
+<a class="btn view" href="https://github.com/MaybeSurya/c/blob/main/tempconv.cpp" target="_blank">View</a>
+<a class="btn download" href="https://raw.githubusercontent.com/MaybeSurya/c/main/tempconv.cpp" download>Download</a>
+<button class="btn preview" onclick="previewCode('tempconv.cpp','cpp')">Preview</button>
+</div>
+</div>
 
-        <div class="card">
-            <h3>Random Number Guesser (C++)</h3>
-            <div class="buttons">
-                <a class="btn view-btn" href="https://github.com/MaybeSurya/c/blob/main/randomgues.cpp" target="_blank">View</a>
-                <a class="btn download-btn" href="https://raw.githubusercontent.com/MaybeSurya/c/main/randomgues.cpp" download>Download</a>
-            </div>
-        </div>
+<!-- Random -->
+<div class="card" data-lang="cpp" data-name="random number guesser">
+<h3>Random Number Guesser (C++)</h3>
+<div class="buttons">
+<a class="btn view" href="https://github.com/MaybeSurya/c/blob/main/randomgues.cpp" target="_blank">View</a>
+<a class="btn download" href="https://raw.githubusercontent.com/MaybeSurya/c/main/randomgues.cpp" download>Download</a>
+<button class="btn preview" onclick="previewCode('randomgues.cpp','cpp')">Preview</button>
+</div>
+</div>
 
-        <div class="card">
-            <h3>Linear Search (C)</h3>
-            <div class="buttons">
-                <a class="btn view-btn" href="https://github.com/MaybeSurya/c/blob/main/linear-search.c" target="_blank">View</a>
-                <a class="btn download-btn" href="https://raw.githubusercontent.com/MaybeSurya/c/main/linear-search.c" download>Download</a>
-            </div>
-        </div>
+<!-- Linear -->
+<div class="card" data-lang="c" data-name="linear search">
+<h3>Linear Search (C)</h3>
+<div class="buttons">
+<a class="btn view" href="https://github.com/MaybeSurya/c/blob/main/linear-search.c" target="_blank">View</a>
+<a class="btn download" href="https://raw.githubusercontent.com/MaybeSurya/c/main/linear-search.c" download>Download</a>
+<button class="btn preview" onclick="previewCode('linear-search.c','c')">Preview</button>
+</div>
+</div>
 
-        <div class="card">
-            <h3>Jump Search (C)</h3>
-            <div class="buttons">
-                <a class="btn view-btn" href="https://github.com/MaybeSurya/c/blob/main/jump-search.c" target="_blank">View</a>
-                <a class="btn download-btn" href="https://raw.githubusercontent.com/MaybeSurya/c/main/jump-search.c" download>Download</a>
-            </div>
-        </div>
+</div>
+</div>
 
-        <div class="card">
-            <h3>Interpolation Search (C)</h3>
-            <div class="buttons">
-                <a class="btn view-btn" href="https://github.com/MaybeSurya/c/blob/main/interpolation-search.c" target="_blank">View</a>
-                <a class="btn download-btn" href="https://raw.githubusercontent.com/MaybeSurya/c/main/interpolation-search.c" download>Download</a>
-            </div>
-        </div>
-
-    </div>
+<!-- Modal -->
+<div class="modal" id="codeModal">
+<div class="modal-content">
+<span class="close" onclick="closeModal()">&times;</span>
+<pre><code id="codeBlock" class="language-c"></code></pre>
+</div>
 </div>
 
 <footer>
-    <p>
-        <a href="https://github.com/MaybeSurya" target="_blank">GitHub</a> |
-        <a href="https://linkedin.com/in/maybesurya" target="_blank">LinkedIn</a> |
-        <a href="https://MaybeSurya.dev" target="_blank">MaybeSurya.dev</a>
-    </p>
-    <p>© 2026 MaybeSurya</p>
+<a href="https://github.com/MaybeSurya" target="_blank">GitHub</a> |
+<a href="https://linkedin.com/in/YOUR_LINKEDIN_USERNAME" target="_blank">LinkedIn</a> |
+<a href="https://MaybeSurya.dev" target="_blank">MaybeSurya.dev</a>
+<p>© 2026 MaybeSurya</p>
 </footer>
 
 <script>
-    function toggleMode() {
-        document.body.classList.toggle("light");
-        localStorage.setItem("theme",
-            document.body.classList.contains("light") ? "light" : "dark"
-        );
-    }
+function toggleMode(){
+document.body.classList.toggle("light");
+localStorage.setItem("theme",
+document.body.classList.contains("light")?"light":"dark");
+}
+window.onload=function(){
+if(localStorage.getItem("theme")==="light"){
+document.body.classList.add("light");
+}
+}
 
-    window.onload = function () {
-        if (localStorage.getItem("theme") === "light") {
-            document.body.classList.add("light");
-        }
-    }
+function filterProjects(lang){
+let cards=document.querySelectorAll(".card");
+cards.forEach(card=>{
+if(lang==="all"||card.dataset.lang===lang){
+card.style.display="block";
+}else{
+card.style.display="none";
+}
+});
+}
+
+function searchProjects(){
+let input=document.getElementById("searchInput").value.toLowerCase();
+let cards=document.querySelectorAll(".card");
+cards.forEach(card=>{
+let name=card.dataset.name;
+card.style.display=name.includes(input)?"block":"none";
+});
+}
+
+async function previewCode(filename,lang){
+let url=`https://raw.githubusercontent.com/MaybeSurya/c/main/${filename}`;
+let response=await fetch(url);
+let text=await response.text();
+let codeBlock=document.getElementById("codeBlock");
+codeBlock.textContent=text;
+codeBlock.className=`language-${lang}`;
+Prism.highlightElement(codeBlock);
+document.getElementById("codeModal").style.display="flex";
+}
+
+function closeModal(){
+document.getElementById("codeModal").style.display="none";
+}
 </script>
 
 </body>
