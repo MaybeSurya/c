@@ -1,5 +1,4 @@
 Repository for my C &amp; C++ Codes
-#List of Projects
 <ol>
   <li><a href="https://github.com/MaybeSurya/c/blob/main/calculator.c">Calculator</a> in C</li>
   <li><a href="https://github.com/MaybeSurya/c/blob/main/tempconv.cpp">Temprature Converter</a> in CPP</li>
