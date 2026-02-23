@@ -9,4 +9,4 @@ Repository for my C &amp; C++ Codes
   <li><a href="https://github.com/MaybeSurya/c/blob/main/interpolation-search.c">Interpolation Search</a> in C</li>
   <li><a href="https://github.com/MaybeSurya/c/blob/main/virtualfunction.cpp">Virtual Fuctions</a> in C++</li>
 </ol>
-<p>Coded with &hearts; by <a href="https://maybesurya.dev">MaybeSurya.dv</a></p>
+<p>Coded with &hearts; by <a href="https://maybesurya.dev">MaybeSurya.dev</a></p>
