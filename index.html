@@ -1,433 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MaybeSurya | C & C++ Projects</title>
-<meta name="description" content="Professional C & C++ project showcase powered by GitHub API.">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>MaybeSurya.dev | C & C++ Projects</title>
+<meta name="description" content="Minimal, clean project listing." />
 
-<!-- Bootstrap Icons -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-
-<!-- Prism Themes (auto switch) -->
-<link id="prism-theme" rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet"/>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<!-- FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-jQq8YbXGq8fYw5Q2rJm6k0QhWv3qj0e7H1Gq9kzV6h5T3b5q2fZpZrYtYk9Q1tK5x8Z0e6q2Y7u9m0l3a4vWQ==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
 <style>
 :root{
---bg:#0f172a;
---bg2:#111827;
---text:#f1f5f9;
---card:rgba(255,255,255,0.05);
---accent:#38bdf8;
---border:rgba(255,255,255,0.1);
+  --bg: #f6f7fb;
+  --card: #ffffff;
+  --muted:#6b7280;
+  --accent:#0071e3;
+  --radius:14px;
+  --shadow: 0 6px 18px rgba(16,24,40,0.08);
 }
-body.light{
---bg:#f8fafc;
---bg2:#e2e8f0;
---text:#0f172a;
---card:rgba(255,255,255,0.7);
---accent:#2563eb;
---border:rgba(0,0,0,0.1);
-}
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,system-ui;}
-body{
-background:linear-gradient(135deg,var(--bg),var(--bg2));
-color:var(--text);
-min-height:100vh;
-overflow-x:hidden;
-transition:.3s;
-}
+*{box-sizing:border-box;margin:0;padding:0;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;}
+body{background:var(--bg);color:#0f172a;min-height:100vh;}
+.container{max-width:980px;margin:48px auto;padding:0 20px;}
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.title{font-size:20px;font-weight:600}
+.subtitle{color:var(--muted);font-size:13px}
 
-/* Floating particles */
-canvas{
-position:fixed;
-top:0;left:0;
-z-index:-1;
-}
+.center-controls{text-align:center;margin-bottom:22px}
+.categories{display:inline-flex;gap:12px;padding:8px 12px;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,0.9),rgba(250,250,252,0.9));box-shadow:var(--shadow)}
+.cat{padding:8px 14px;border-radius:999px;border:none;background:transparent;cursor:pointer;color:var(--muted);font-weight:600}
+.cat.active{background:var(--accent);color:white}
 
-/* HERO */
-.hero{
-text-align:center;
-padding:100px 20px 60px;
-animation:fadeHero 1s ease forwards;
-}
-@keyframes fadeHero{
-from{opacity:0;transform:translateY(20px);}
-to{opacity:1;transform:translateY(0);}
-}
-.hero h1{
-font-size:2.8rem;
-margin-bottom:15px;
-}
-.hero p{
-opacity:0.8;
-max-width:600px;
-margin:auto;
-}
+.search-wrap{display:flex;justify-content:center;margin-top:16px}
+.search{width:100%;max-width:640px;padding:12px 16px;border-radius:999px;border:1px solid #e6e9ef;background:var(--card);box-shadow:0 2px 6px rgba(16,24,40,0.03)}
+.search input{width:100%;border:0;outline:0;font-size:14px}
 
-/* Layout */
-.layout{
-display:flex;
-max-width:1400px;
-margin:auto;
-padding:20px;
-gap:30px;
-}
-
-/* Sidebar */
-.sidebar{
-width:220px;
-background:var(--card);
-border:1px solid var(--border);
-border-radius:14px;
-padding:20px;
-height:fit-content;
-backdrop-filter:blur(10px);
-}
-.sidebar h3{
-margin-bottom:15px;
-font-size:1rem;
-}
-.sidebar button{
-width:100%;
-margin-bottom:8px;
-padding:8px;
-border:none;
-border-radius:8px;
-background:var(--accent);
-color:white;
-cursor:pointer;
-font-size:0.8rem;
-}
-
-/* Content */
-.content{flex:1;}
-.topbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px;
-}
-input{
-padding:8px 12px;
-border-radius:20px;
-border:1px solid var(--border);
-background:var(--card);
-color:var(--text);
-}
-
-/* Theme toggle */
-.toggle{
-cursor:pointer;
-font-size:1.4rem;
-}
-
-/* Projects */
-.projects{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:25px;
-}
-.card{
-background:var(--card);
-border:1px solid var(--border);
-border-radius:16px;
-padding:20px;
-backdrop-filter:blur(12px);
-transition:.3s;
-}
-.card:hover{
-transform:translateY(-6px);
-border-color:var(--accent);
-}
-.stats{
-font-size:0.75rem;
-opacity:0.8;
-margin:8px 0;
-}
-.buttons{
-display:flex;
-gap:8px;
-margin-top:10px;
-}
-.btn{
-flex:1;
-padding:8px;
-border-radius:8px;
-border:none;
-cursor:pointer;
-background:var(--accent);
-color:white;
-font-size:0.8rem;
-}
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:28px}
+.card{background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);border:1px solid rgba(16,24,40,0.04)}
+.card h3{font-size:15px;margin-bottom:8px}
+.meta{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:13px}
+.meta .item{display:inline-flex;gap:6px;align-items:center}
+.actions{display:flex;gap:8px;margin-top:14px}
+.icon-btn{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(16,24,40,0.04);background:transparent;cursor:pointer;color:var(--accent);font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.icon-btn.primary{background:var(--accent);color:white;border:0}
+.small{font-size:13px;padding:8px}
 
 /* Modal */
-.modal{
-display:none;
-position:fixed;
-top:0;left:0;
-width:100%;height:100%;
-background:rgba(0,0,0,0.7);
-justify-content:center;
-align-items:center;
-padding:20px;
-z-index:10;
-}
-.modal-content{
-width:100%;
-max-width:1000px;
-height:80vh;
-background:#1e1e1e;
-border-radius:14px;
-display:flex;
-flex-direction:column;
-overflow:hidden;
-}
-.modal-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:12px 20px;
-background:#111;
-color:white;
-}
-.modal-body{
-flex:1;
-overflow:auto;
-padding:20px;
-}
-.copy{
-background:var(--accent);
-padding:6px 12px;
-border-radius:6px;
-cursor:pointer;
-font-size:0.8rem;
-}
+.modal{display:none;position:fixed;inset:0;background:rgba(8,10,15,0.6);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:18px}
+.modal .box{width:100%;max-width:900px;background:white;border-radius:12px;overflow:hidden}
+.modal .header{padding:12px 16px;background:#fbfbfd;border-bottom:1px solid #f0f0f3}
+.modal .body{padding:16px;max-height:60vh;overflow:auto}
+.code{background:#0b1220;color:#e6eef8;padding:12px;border-radius:8px;font-family:monospace;white-space:pre;}
+.copy-icon{cursor:pointer;color:var(--accent);font-size:18px}
 
-/* Footer */
-footer{
-margin-top:80px;
-padding:30px;
-text-align:center;
-border-top:1px solid var(--border);
-font-size:0.9rem;
-opacity:0.8;
-}
-footer a{
-color:var(--accent);
-margin:0 8px;
-text-decoration:none;
-}
+.footer{margin-top:40px;text-align:center;color:var(--muted);font-size:13px;padding:34px 0}
+.footer a{color:var(--muted);margin:0 8px;text-decoration:none}
+
+@media(max-width:560px){.categories{gap:8px;padding:6px}}
 </style>
 </head>
-
 <body>
 
-<canvas id="particles"></canvas>
+<div class="container">
+  <div class="header">
+    <div>
+      <div class="title">MaybeSurya.dev</div>
+      <div class="subtitle">C & C++ small projects • Clean showcase</div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <a href="https://github.com/MaybeSurya" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github fa-lg"></i></a>
+      <a href="https://linkedin.com/in/MaybeSurya" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin fa-lg"></i></a>
+      <a href="https://MaybeSurya.dev" target="_blank" aria-label="Website"><i class="fa-solid fa-globe fa-lg"></i></a>
+    </div>
+  </div>
 
-<section class="hero">
-<h1>C & C++ Projects</h1>
-<p>Modern, dynamic showcase powered by GitHub API. Clean, professional, and fully automated.</p>
-</section>
+  <div class="center-controls">
+    <div class="categories" id="categories">
+      <button class="cat active" onclick="selectCategory('all')">All</button>
+      <button class="cat" onclick="selectCategory('c')">C</button>
+      <button class="cat" onclick="selectCategory('cpp')">C++</button>
+    </div>
 
-<div class="layout">
-<div class="sidebar">
-<h3>Filters</h3>
-<button onclick="filterLang('all')">All</button>
-<button onclick="filterLang('c')">C</button>
-<button onclick="filterLang('cpp')">C++</button>
-</div>
+    <div class="search-wrap">
+      <div class="search">
+        <input id="search" placeholder="Search projects by name..." oninput="onSearch()" />
+      </div>
+    </div>
+  </div>
 
-<div class="content">
-<div class="topbar">
-<input type="text" id="search" placeholder="Search projects..." onkeyup="searchProjects()">
-<span class="toggle" onclick="toggleTheme()"><i class="bi bi-moon-stars"></i></span>
-</div>
+  <div class="projects" id="projects" aria-live="polite"></div>
 
-<div class="projects" id="projects"></div>
-</div>
+  <div style="height:30px" id="loadTrigger"></div>
+
+  <div class="footer">
+    <div>© 2026 MaybeSurya</div>
+  </div>
 </div>
 
 <!-- Modal -->
 <div class="modal" id="modal">
-<div class="modal-content">
-<div class="modal-header">
-<span id="fileName"></span>
-<div>
-<span class="copy" onclick="copyCode()">Copy</span>
-<span onclick="closeModal()" style="cursor:pointer;">✕</span>
+  <div class="box">
+    <div class="header" style="display:flex;justify-content:space-between;align-items:center">
+      <div id="modalTitle" style="font-weight:600"></div>
+      <div style="display:flex;gap:12px;align-items:center">
+        <i class="fa-regular fa-copy copy-icon" id="copyIcon" title="Copy code" onclick="copyCode()"></i>
+        <i class="fa-solid fa-xmark" style="cursor:pointer" onclick="closeModal()"></i>
+      </div>
+    </div>
+    <div class="body">
+      <pre class="code" id="codeBlock">Loading...</pre>
+    </div>
+  </div>
 </div>
-</div>
-<div class="modal-body">
-<pre class="line-numbers"><code id="codeBlock"></code></pre>
-</div>
-</div>
-</div>
-
-<footer>
-<a href="https://github.com/MaybeSurya" target="_blank">GitHub</a> |
-<a href="https://linkedin.com/in/MaybeSurya" target="_blank">LinkedIn</a> |
-<a href="https://MaybeSurya.dev" target="_blank">MaybeSurya.dev</a>
-<p>© 2026 MaybeSurya</p>
-</footer>
 
 <script>
-const repo="MaybeSurya/c";
-let allProjects=[];
-let visibleProjects=[];
-let currentIndex=0;
-const batchSize=6;
+const repo = 'MaybeSurya/c';
+let allFiles = [];
+let visible = [];
+let current = 0;
+const batch = 8;
+let selectedCategory = 'all';
 
-/* ================= FETCH DATA ================= */
 async function fetchProjects(){
-showSkeletons();
+  showSkeletons();
+  const repoRes = await fetch(`https://api.github.com/repos/${repo}`);
+  const repoStats = await repoRes.json();
+  const res = await fetch(`https://api.github.com/repos/${repo}/contents`);
+  const files = await res.json();
 
-let repoRes=await fetch(`https://api.github.com/repos/${repo}`);
-let repoStats=await repoRes.json();
+  allFiles = files.filter(f=>f.name.endsWith('.c')||f.name.endsWith('.cpp')).map(f=>({
+    name:f.name, path:f.path, download_url:f.download_url, lang: f.name.endsWith('.c')?'c':'cpp', repoStats
+  }));
 
-let res=await fetch(`https://api.github.com/repos/${repo}/contents`);
-let files=await res.json();
-
-files.forEach(file=>{
-if(file.name.endsWith(".c")||file.name.endsWith(".cpp")){
-let lang=file.name.endsWith(".c")?"c":"cpp";
-allProjects.push({...file,lang,stats:repoStats});
-}
-});
-
-clearSkeletons();
-loadMoreProjects();
-observeScroll();
+  clearSkeletons();
+  loadMore();
+  observeScroll();
 }
 
-/* ================= LAZY LOAD RENDER ================= */
-function loadMoreProjects(){
-const nextBatch=allProjects.slice(currentIndex,currentIndex+batchSize);
-visibleProjects=[...visibleProjects,...nextBatch];
-currentIndex+=batchSize;
-render(visibleProjects);
+function showSkeletons(){
+  const c = document.getElementById('projects');
+  c.innerHTML = '';
+  for(let i=0;i<6;i++) c.innerHTML += `<div class="card" style="height:110px;background:linear-gradient(180deg,#fff,#fbfbfd);opacity:0.9"></div>`;
+}
+function clearSkeletons(){ document.getElementById('projects').innerHTML=''; }
+
+function loadMore(){
+  const next = allFiles.slice(current, current+batch).filter(f=>filterByCategory(f));
+  visible = [...visible, ...next];
+  current += batch;
+  render(visible);
+}
+
+function filterByCategory(f){
+  if(selectedCategory==='all') return true;
+  return f.lang === selectedCategory;
 }
 
 function observeScroll(){
-const observer=new IntersectionObserver(entries=>{
-if(entries[0].isIntersecting){
-loadMoreProjects();
-}
-},{threshold:1});
-
-observer.observe(document.querySelector("#loadTrigger"));
+  const obs = new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting) loadMore();
+  },{threshold:1});
+  const el = document.getElementById('loadTrigger');
+  if(el) obs.observe(el);
 }
 
-/* ================= RENDER ================= */
 function render(list){
-const container=document.getElementById("projects");
-container.innerHTML="";
+  const c = document.getElementById('projects');
+  c.innerHTML='';
+  list.forEach(async (p)=>{
+    // fetch last commit for this file to get accurate updated date
+    let updated='—';
+    try{
+      const commits = await fetch(`https://api.github.com/repos/${repo}/commits?path=${encodeURIComponent(p.path)}&per_page=1`);
+      const data = await commits.json();
+      if(Array.isArray(data)&&data.length>0) updated = new Date(data[0].commit.author.date).toLocaleDateString();
+    }catch(e){ /* ignore */ }
 
-list.forEach(p=>{
-container.innerHTML+=`
-<div class="card">
-<h3>${p.name}</h3>
-<div class="stats">
-⭐ ${p.stats.stargazers_count} |
-🍴 ${p.stats.forks_count} |
-Updated: ${new Date(p.stats.updated_at).toLocaleDateString()}
-</div>
-<div class="buttons">
-<button class="btn" onclick="previewCode('${p.download_url}','${p.lang}','${p.name}')">Preview</button>
-<a class="btn" href="${p.download_url}" download>Download</a>
-</div>
-</div>`;
-});
+    const html = `
+      <div class="card">
+        <h3>${p.name}</h3>
+        <div class="meta">
+          <div class="item"><i class="fa-solid fa-star"></i> ${p.repoStats?.stargazers_count ?? '0'}</div>
+          <div class="item"><i class="fa-solid fa-code-branch"></i> ${p.repoStats?.forks_count ?? '0'}</div>
+          <div class="item">Updated: ${updated}</div>
+        </div>
+        <div class="actions">
+          <button class="icon-btn primary" onclick="preview('${p.download_url}','${p.lang}','${p.name}')"><i class="fa-regular fa-eye"></i> Preview</button>
+          <a class="icon-btn" href="${p.download_url}" download><i class="fa-solid fa-download"></i> Download</a>
+        </div>
+      </div>`;
 
-container.innerHTML+=`<div id="loadTrigger" style="height:20px;"></div>`;
+    c.insertAdjacentHTML('beforeend', html);
+  });
 }
 
-/* ================= SEARCH ================= */
-function searchProjects(){
-let val=document.getElementById("search").value.toLowerCase();
-visibleProjects=allProjects.filter(p=>p.name.toLowerCase().includes(val));
-currentIndex=visibleProjects.length;
-render(visibleProjects);
+function selectCategory(cat){
+  selectedCategory = cat;
+  document.querySelectorAll('.cat').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.cat').forEach(b=>{ if(b.textContent.toLowerCase()===(cat==='cpp'?'c++':cat)) b.classList.add('active'); });
+  // reset view
+  visible = [];
+  current = 0;
+  render(visible);
+  loadMore();
 }
 
-/* ================= CODE PREVIEW ================= */
-async function previewCode(url,lang,name){
-let res=await fetch(url);
-let text=await res.text();
-document.getElementById("fileName").textContent=name;
-let block=document.getElementById("codeBlock");
-block.textContent=text;
-block.className=`language-${lang}`;
-Prism.highlightElement(block);
-document.getElementById("modal").style.display="flex";
+function onSearch(){
+  const q = document.getElementById('search').value.toLowerCase();
+  const filtered = allFiles.filter(f=>f.name.toLowerCase().includes(q) && filterByCategory(f));
+  visible = filtered;
+  render(visible);
 }
 
-function closeModal(){
-document.getElementById("modal").style.display="none";
+async function preview(url,lang,name){
+  const res = await fetch(url);
+  const txt = await res.text();
+  document.getElementById('modalTitle').textContent = name;
+  const block = document.getElementById('codeBlock');
+  block.textContent = txt;
+  document.getElementById('modal').style.display='flex';
 }
-
+function closeModal(){ document.getElementById('modal').style.display='none'; }
 function copyCode(){
-navigator.clipboard.writeText(document.getElementById("codeBlock").textContent);
+  const txt = document.getElementById('codeBlock').textContent;
+  navigator.clipboard.writeText(txt);
+  const ico = document.getElementById('copyIcon');
+  ico.classList.add('fa-beat');
+  setTimeout(()=>ico.classList.remove('fa-beat'),800);
 }
-
-/* ================= THEME SWITCH ================= */
-function toggleTheme(){
-document.body.classList.toggle("light");
-let theme=document.body.classList.contains("light");
-document.getElementById("prism-theme").href=
-theme?
-"https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css":
-"https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css";
-}
-
-/* ================= SKELETON LOADERS ================= */
-function showSkeletons(){
-const container=document.getElementById("projects");
-for(let i=0;i<6;i++){
-container.innerHTML+=`
-<div class="card" style="background:rgba(255,255,255,0.05);height:120px;animation:pulse 1.5s infinite;"></div>`;
-}
-}
-
-function clearSkeletons(){
-document.getElementById("projects").innerHTML="";
-}
-
-/* ================= PARTICLE OPTIMIZATION ================= */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let particles=[];
-for(let i=0;i<40;i++){
-particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,dx:(Math.random()-0.5)*0.4,dy:(Math.random()-0.5)*0.4});
-}
-
-function animate(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-particles.forEach(p=>{
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-ctx.fillStyle="rgba(255,255,255,0.3)";
-ctx.fill();
-p.x+=p.dx;p.y+=p.dy;
-if(p.x<0||p.x>canvas.width)p.dx*=-1;
-if(p.y<0||p.y>canvas.height)p.dy*=-1;
-});
-requestAnimationFrame(animate);
-}
-animate();
-
-/* INIT */
 fetchProjects();
 </script>
+
 </body>
 </html>
