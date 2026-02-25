@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>MaybeSurya.dev | Codebase Showcase</title>
-<meta name="description" content="Minimal monochrome codebase showcase." />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
 
 <style>
 :root{
@@ -15,46 +15,47 @@
   --text:#1d1d1f;
   --muted:#6e6e73;
   --border:#e5e5ea;
-  --accent:#111;
+  --accent:#0a84ff;
   --radius:18px;
 }
 
 *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif}
-body{background:var(--bg);color:var(--text);min-height:100vh}
+body{background:var(--bg);color:var(--text)}
 
-.container{max-width:1000px;margin:60px auto;padding:0 20px}
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px}
+.container{max-width:1100px;margin:60px auto;padding:0 20px}
+
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}
 .title{font-size:22px;font-weight:600}
 .subtitle{font-size:14px;color:var(--muted);margin-top:4px}
 
-.header-icons a{color:var(--text);margin-left:18px;font-size:18px;text-decoration:none}
-.header-icons a:hover{opacity:.6}
-
-.token-input{
-  margin-top:20px;
-  text-align:center;
+.controls{
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:15px;
+  margin:30px 0;
 }
-.token-input input{
-  padding:10px 16px;
+
+.categories button,
+.sort select{
+  padding:8px 16px;
   border-radius:999px;
   border:1px solid var(--border);
-  width:100%;
-  max-width:420px;
-  font-size:13px;
   background:white;
+  cursor:pointer;
+  font-size:13px;
 }
-.token-input small{
-  display:block;
-  margin-top:6px;
-  color:var(--muted);
-  font-size:12px;
+
+.categories button.active{
+  background:var(--accent);
+  color:white;
+  border:0;
 }
 
 .projects{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
   gap:22px;
-  margin-top:40px;
 }
 
 .card{
@@ -62,31 +63,24 @@ body{background:var(--bg);color:var(--text);min-height:100vh}
   border:1px solid var(--border);
   border-radius:var(--radius);
   padding:22px;
-  transition:.2s ease;
+  transition:.2s;
 }
-.card:hover{
-  transform:translateY(-4px);
-}
+.card:hover{transform:translateY(-4px)}
 
-.card h3{
-  font-size:16px;
-  margin-bottom:12px;
-  font-weight:600;
-}
+.card h3{font-size:16px;margin-bottom:12px}
 
 .meta{
   font-size:12px;
   color:var(--muted);
   display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-bottom:14px;
+  gap:10px;
+  margin-bottom:15px;
 }
 
 .badge{
+  background:#f2f2f2;
   padding:4px 10px;
   border-radius:999px;
-  background:#f2f2f2;
   font-size:11px;
 }
 
@@ -99,15 +93,23 @@ body{background:var(--bg);color:var(--text);min-height:100vh}
   flex:1;
   padding:10px;
   border-radius:12px;
+  font-size:13px;
+  cursor:pointer;
   border:1px solid var(--border);
   background:white;
-  cursor:pointer;
-  font-size:13px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:6px;
+  transition:.2s;
 }
-.btn.primary{
-  background:#111;
+.btn.preview{
+  background:var(--accent);
   color:white;
   border:0;
+}
+.btn.download{
+  color:var(--accent);
 }
 .btn:hover{opacity:.85}
 
@@ -120,13 +122,14 @@ body{background:var(--bg);color:var(--text);min-height:100vh}
   justify-content:center;
   align-items:center;
   padding:20px;
-  z-index:1000;
+  animation:fade .2s ease;
 }
+@keyframes fade{from{opacity:0}to{opacity:1}}
 
 .modal-box{
   background:white;
   width:100%;
-  max-width:900px;
+  max-width:950px;
   border-radius:20px;
   overflow:hidden;
   display:flex;
@@ -141,46 +144,21 @@ body{background:var(--bg);color:var(--text);min-height:100vh}
   border-bottom:1px solid var(--border);
 }
 
-.modal-header h4{
-  font-size:14px;
-  font-weight:600;
-}
-
-.modal-actions{
-  display:flex;
-  gap:14px;
-}
-
 .modal-actions i{
   cursor:pointer;
-  font-size:16px;
+  margin-left:15px;
 }
 
 .modal-body{
-  padding:20px;
-  max-height:65vh;
+  max-height:70vh;
   overflow:auto;
-  background:#0f1115;
-  color:#e6e6e6;
-  font-family:monospace;
-  font-size:13px;
-  white-space:pre;
 }
 
-.toast{
-  position:fixed;
-  bottom:30px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#111;
-  color:white;
-  padding:10px 18px;
-  border-radius:999px;
+pre{
+  margin:0;
+  padding:20px;
   font-size:13px;
-  opacity:0;
-  transition:.3s;
 }
-.toast.show{opacity:1}
 
 .footer{
   margin-top:80px;
@@ -188,109 +166,125 @@ body{background:var(--bg);color:var(--text);min-height:100vh}
   color:var(--muted);
   font-size:13px;
 }
-.footer a{
-  margin:0 10px;
-  color:var(--muted);
-  text-decoration:none;
-  font-size:16px;
-}
-.footer a:hover{color:#111}
 </style>
 </head>
 <body>
 
 <div class="container">
+
   <div class="header">
     <div>
       <div class="title">MaybeSurya.dev</div>
       <div class="subtitle">Personal Codebase Showcase</div>
     </div>
-    <div class="header-icons">
-      <a href="https://github.com/MaybeSurya" target="_blank"><i class="fa-brands fa-github"></i></a>
-      <a href="https://linkedin.com/in/MaybeSurya" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-    </div>
   </div>
 
-  <div class="token-input">
-    <input type="password" id="tokenInput" placeholder="Optional: GitHub API Token (avoids rate limits)">
-    <small>Token is stored locally in your browser.</small>
+  <div class="controls">
+    <div class="categories">
+      <button onclick="setCategory('all')" class="active">All</button>
+      <button onclick="setCategory('c')">C</button>
+      <button onclick="setCategory('cpp')">C++</button>
+    </div>
+
+    <div class="sort">
+      <select onchange="setSort(this.value)">
+        <option value="newest">Newest</option>
+        <option value="oldest">Oldest</option>
+        <option value="size">Size</option>
+      </select>
+    </div>
   </div>
 
   <div class="projects" id="projects"></div>
 
-  <div class="footer">
-    © 2026 MaybeSurya  
-    <div style="margin-top:10px;">
-      <a href="https://github.com/MaybeSurya"><i class="fa-brands fa-github"></i></a>
-      <a href="https://linkedin.com/in/MaybeSurya"><i class="fa-brands fa-linkedin"></i></a>
-    </div>
-  </div>
+  <div class="footer">© 2026 MaybeSurya</div>
 </div>
 
 <div class="modal" id="modal">
   <div class="modal-box">
     <div class="modal-header">
-      <h4 id="modalTitle"></h4>
+      <strong id="modalTitle"></strong>
       <div class="modal-actions">
         <i class="fa-regular fa-copy" onclick="copyCode()"></i>
         <i class="fa-solid fa-xmark" onclick="closeModal()"></i>
       </div>
     </div>
-    <div class="modal-body" id="codeBlock">Loading...</div>
+    <div class="modal-body">
+      <pre><code id="codeBlock" class="language-cpp"></code></pre>
+    </div>
   </div>
 </div>
 
-<div class="toast" id="toast">Copied to clipboard</div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script>
-const repo = "MaybeSurya/c";
-let token = localStorage.getItem("gh_token") || "";
-document.getElementById("tokenInput").value = token;
-
-document.getElementById("tokenInput").addEventListener("change", e=>{
-  token = e.target.value.trim();
-  localStorage.setItem("gh_token", token);
-  fetchProjects();
-});
-
-function headers(){
-  return token ? {Authorization:`token ${token}`} : {};
-}
+const repo="MaybeSurya/c";
+let files=[];
+let category="all";
+let sortType="newest";
 
 async function fetchProjects(){
-  const res = await fetch(`https://api.github.com/repos/${repo}/contents`, {headers:headers()});
-  const files = await res.json();
-  const list = files.filter(f=>f.name.endsWith(".c")||f.name.endsWith(".cpp"));
-  render(list);
+  const res=await fetch(`https://api.github.com/repos/${repo}/contents`);
+  files=await res.json();
+  render();
 }
 
-function render(list){
-  const c = document.getElementById("projects");
+function setCategory(cat){
+  category=cat;
+  document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
+  event.target.classList.add("active");
+  render();
+}
+
+function setSort(val){
+  sortType=val;
+  render();
+}
+
+function render(){
+  let list=files.filter(f=>f.name.endsWith(".c")||f.name.endsWith(".cpp"));
+
+  if(category!=="all"){
+    list=list.filter(f=>category==="c"?f.name.endsWith(".c"):f.name.endsWith(".cpp"));
+  }
+
+  if(sortType==="size") list.sort((a,b)=>b.size-a.size);
+  if(sortType==="oldest") list.sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
+  if(sortType==="newest") list.sort((a,b)=>b.size-a.size);
+
+  const c=document.getElementById("projects");
   c.innerHTML="";
+
   list.forEach(f=>{
-    const sizeKB = (f.size/1024).toFixed(1)+" KB";
-    const lang = f.name.endsWith(".c")?"C":"C++";
+    const lang=f.name.endsWith(".c")?"C":"C++";
+    const size=(f.size/1024).toFixed(1)+" KB";
 
     c.innerHTML+=`
       <div class="card">
         <h3>${f.name}</h3>
         <div class="meta">
           <span class="badge">${lang}</span>
-          <span>${sizeKB}</span>
+          <span>${size}</span>
         </div>
         <div class="actions">
-          <button class="btn primary" onclick="preview('${f.download_url}','${f.name}')">Preview</button>
-          <a class="btn" href="${f.download_url}" download>Download</a>
+          <button class="btn preview" onclick="preview('${f.download_url}','${f.name}','${lang}')">
+            <i class="fa-regular fa-eye"></i> Preview
+          </button>
+          <a class="btn download" href="${f.download_url}" download>
+            <i class="fa-solid fa-download"></i> Download
+          </a>
         </div>
       </div>`;
   });
 }
 
-async function preview(url,name){
-  const res = await fetch(url);
-  const txt = await res.text();
+async function preview(url,name,lang){
+  const res=await fetch(url);
+  const txt=await res.text();
   document.getElementById("modalTitle").textContent=name;
-  document.getElementById("codeBlock").textContent=txt;
+  const block=document.getElementById("codeBlock");
+  block.textContent=txt;
+  block.className=lang==="C"?"language-c":"language-cpp";
+  Prism.highlightElement(block);
   document.getElementById("modal").style.display="flex";
 }
 
@@ -301,13 +295,9 @@ function closeModal(){
 function copyCode(){
   const txt=document.getElementById("codeBlock").textContent;
   navigator.clipboard.writeText(txt);
-  const toast=document.getElementById("toast");
-  toast.classList.add("show");
-  setTimeout(()=>toast.classList.remove("show"),1500);
 }
 
 fetchProjects();
 </script>
-
 </body>
 </html>
