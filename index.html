@@ -5,8 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>MaybeSurya.dev | Codebase Showcase</title>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet"/>
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- Prism (Core + C + C++) -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
 
 <style>
 :root{
@@ -15,47 +21,109 @@
   --text:#1d1d1f;
   --muted:#6e6e73;
   --border:#e5e5ea;
-  --accent:#0a84ff;
-  --radius:18px;
+  --radius:20px;
 }
 
-*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif}
-body{background:var(--bg);color:var(--text)}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",
+  "SF Pro Display","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
 
-.container{max-width:1100px;margin:60px auto;padding:0 20px}
+body{
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+}
 
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}
-.title{font-size:22px;font-weight:600}
-.subtitle{font-size:14px;color:var(--muted);margin-top:4px}
+.container{
+  max-width:1100px;
+  margin:70px auto;
+  padding:0 24px;
+}
 
-.controls{
+/* Header */
+
+.header{
   display:flex;
   justify-content:space-between;
-  flex-wrap:wrap;
-  gap:15px;
-  margin:30px 0;
+  align-items:center;
+  margin-bottom:50px;
 }
 
-.categories button,
-.sort select{
-  padding:8px 16px;
+.title{
+  font-size:22px;
+  font-weight:600;
+  letter-spacing:-0.2px;
+}
+
+.subtitle{
+  font-size:14px;
+  color:var(--muted);
+  margin-top:6px;
+}
+
+.social a{
+  color:var(--text);
+  font-size:18px;
+  margin-left:18px;
+  text-decoration:none;
+  transition:opacity .2s;
+}
+
+.social a:hover{
+  opacity:.5;
+}
+
+/* Segmented Control */
+
+.segmented{
+  display:inline-flex;
+  background:#e9e9ed;
   border-radius:999px;
-  border:1px solid var(--border);
-  background:white;
-  cursor:pointer;
-  font-size:13px;
+  padding:4px;
+  margin-bottom:35px;
 }
 
-.categories button.active{
-  background:var(--accent);
-  color:white;
-  border:0;
+.segmented button{
+  border:none;
+  background:transparent;
+  padding:8px 18px;
+  border-radius:999px;
+  font-size:13px;
+  cursor:pointer;
+  color:var(--muted);
 }
+
+.segmented button.active{
+  background:white;
+  color:var(--text);
+  box-shadow:0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* Sorting */
+
+.sort{
+  float:right;
+  margin-top:-50px;
+}
+
+.sort select{
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:8px 14px;
+  font-size:13px;
+  background:white;
+}
+
+/* Cards */
 
 .projects{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:22px;
+  gap:26px;
 }
 
 .card{
@@ -63,36 +131,44 @@ body{background:var(--bg);color:var(--text)}
   border:1px solid var(--border);
   border-radius:var(--radius);
   padding:22px;
-  transition:.2s;
+  transition:.25s ease;
 }
-.card:hover{transform:translateY(-4px)}
 
-.card h3{font-size:16px;margin-bottom:12px}
+.card:hover{
+  transform:translateY(-6px);
+}
+
+.card h3{
+  font-size:16px;
+  font-weight:600;
+  margin-bottom:12px;
+}
 
 .meta{
   font-size:12px;
   color:var(--muted);
   display:flex;
-  gap:10px;
-  margin-bottom:15px;
+  gap:12px;
+  margin-bottom:16px;
 }
 
 .badge{
   background:#f2f2f2;
   padding:4px 10px;
   border-radius:999px;
-  font-size:11px;
 }
+
+/* Buttons */
 
 .actions{
   display:flex;
-  gap:10px;
+  gap:12px;
 }
 
 .btn{
   flex:1;
-  padding:10px;
   border-radius:12px;
+  padding:10px;
   font-size:13px;
   cursor:pointer;
   border:1px solid var(--border);
@@ -103,50 +179,55 @@ body{background:var(--bg);color:var(--text)}
   gap:6px;
   transition:.2s;
 }
-.btn.preview{
-  background:var(--accent);
-  color:white;
-  border:0;
+
+.btn:hover{
+  background:#f2f2f2;
 }
-.btn.download{
-  color:var(--accent);
-}
-.btn:hover{opacity:.85}
+
+/* Modal */
 
 .modal{
   display:none;
   position:fixed;
   inset:0;
   background:rgba(0,0,0,.5);
-  backdrop-filter:blur(6px);
+  backdrop-filter:blur(8px);
   justify-content:center;
   align-items:center;
   padding:20px;
-  animation:fade .2s ease;
+  z-index:1000;
 }
-@keyframes fade{from{opacity:0}to{opacity:1}}
 
 .modal-box{
-  background:white;
   width:100%;
   max-width:950px;
-  border-radius:20px;
+  background:white;
+  border-radius:24px;
   overflow:hidden;
-  display:flex;
-  flex-direction:column;
+  animation:fadeIn .25s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
 .modal-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:16px 20px;
+  padding:18px 22px;
   border-bottom:1px solid var(--border);
 }
 
 .modal-actions i{
+  margin-left:18px;
   cursor:pointer;
-  margin-left:15px;
+  color:var(--muted);
+}
+
+.modal-actions i:hover{
+  color:var(--text);
 }
 
 .modal-body{
@@ -156,12 +237,14 @@ body{background:var(--bg);color:var(--text)}
 
 pre{
   margin:0;
-  padding:20px;
+  padding:24px;
   font-size:13px;
 }
 
+/* Footer */
+
 .footer{
-  margin-top:80px;
+  margin-top:90px;
   text-align:center;
   color:var(--muted);
   font-size:13px;
@@ -177,22 +260,25 @@ pre{
       <div class="title">MaybeSurya.dev</div>
       <div class="subtitle">Personal Codebase Showcase</div>
     </div>
+
+    <div class="social">
+      <a href="https://github.com/MaybeSurya" target="_blank"><i class="fa-brands fa-github"></i></a>
+      <a href="https://linkedin.com/in/MaybeSurya" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="https://MaybeSurya.dev" target="_blank"><i class="fa-solid fa-globe"></i></a>
+    </div>
   </div>
 
-  <div class="controls">
-    <div class="categories">
-      <button onclick="setCategory('all')" class="active">All</button>
-      <button onclick="setCategory('c')">C</button>
-      <button onclick="setCategory('cpp')">C++</button>
-    </div>
+  <div class="segmented">
+    <button onclick="setCategory('all')" class="active">All</button>
+    <button onclick="setCategory('c')">C</button>
+    <button onclick="setCategory('cpp')">C++</button>
+  </div>
 
-    <div class="sort">
-      <select onchange="setSort(this.value)">
-        <option value="newest">Newest</option>
-        <option value="oldest">Oldest</option>
-        <option value="size">Size</option>
-      </select>
-    </div>
+  <div class="sort">
+    <select onchange="setSort(this.value)">
+      <option value="name">Name</option>
+      <option value="size">Size</option>
+    </select>
   </div>
 
   <div class="projects" id="projects"></div>
@@ -210,17 +296,16 @@ pre{
       </div>
     </div>
     <div class="modal-body">
-      <pre><code id="codeBlock" class="language-cpp"></code></pre>
+      <pre><code id="codeBlock"></code></pre>
     </div>
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script>
 const repo="MaybeSurya/c";
 let files=[];
 let category="all";
-let sortType="newest";
+let sortType="name";
 
 async function fetchProjects(){
   const res=await fetch(`https://api.github.com/repos/${repo}/contents`);
@@ -230,7 +315,7 @@ async function fetchProjects(){
 
 function setCategory(cat){
   category=cat;
-  document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
+  document.querySelectorAll(".segmented button").forEach(b=>b.classList.remove("active"));
   event.target.classList.add("active");
   render();
 }
@@ -248,8 +333,7 @@ function render(){
   }
 
   if(sortType==="size") list.sort((a,b)=>b.size-a.size);
-  if(sortType==="oldest") list.sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
-  if(sortType==="newest") list.sort((a,b)=>b.size-a.size);
+  else list.sort((a,b)=>a.name.localeCompare(b.name));
 
   const c=document.getElementById("projects");
   c.innerHTML="";
@@ -266,10 +350,10 @@ function render(){
           <span>${size}</span>
         </div>
         <div class="actions">
-          <button class="btn preview" onclick="preview('${f.download_url}','${f.name}','${lang}')">
+          <button class="btn" onclick="preview('${f.download_url}','${f.name}','${lang}')">
             <i class="fa-regular fa-eye"></i> Preview
           </button>
-          <a class="btn download" href="${f.download_url}" download>
+          <a class="btn" href="${f.download_url}" download>
             <i class="fa-solid fa-download"></i> Download
           </a>
         </div>
@@ -281,10 +365,13 @@ async function preview(url,name,lang){
   const res=await fetch(url);
   const txt=await res.text();
   document.getElementById("modalTitle").textContent=name;
+
   const block=document.getElementById("codeBlock");
   block.textContent=txt;
   block.className=lang==="C"?"language-c":"language-cpp";
+
   Prism.highlightElement(block);
+
   document.getElementById("modal").style.display="flex";
 }
 
@@ -299,5 +386,6 @@ function copyCode(){
 
 fetchProjects();
 </script>
+
 </body>
 </html>
