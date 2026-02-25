@@ -3,13 +3,12 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>MaybeSurya.dev | Codebase Showcase</title>
+<title>MaybeSurya.dev | Codebase</title>
 
-<!-- Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<!-- Prism (Core + C + C++) -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet"/>
+<!-- Prism -->
+<link id="prism-theme" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
@@ -17,148 +16,128 @@
 <style>
 :root{
   --bg:#f5f5f7;
-  --card:#ffffff;
   --text:#1d1d1f;
   --muted:#6e6e73;
-  --border:#e5e5ea;
-  --radius:20px;
+  --glass:rgba(255,255,255,0.6);
+  --border:rgba(255,255,255,0.4);
+}
+
+body.dark{
+  --bg:#0f0f11;
+  --text:#f5f5f7;
+  --muted:#a1a1a6;
+  --glass:rgba(30,30,32,0.6);
+  --border:rgba(255,255,255,0.08);
 }
 
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",
-  "SF Pro Display","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",
+  "SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 body{
   background:var(--bg);
   color:var(--text);
-  -webkit-font-smoothing:antialiased;
+  transition:background .4s,color .4s;
+  overflow-x:hidden;
 }
+
+/* Hero */
+
+.hero{
+  padding:120px 20px 80px;
+  text-align:center;
+  position:relative;
+}
+
+.hero h1{
+  font-size:42px;
+  font-weight:600;
+  letter-spacing:-1px;
+}
+
+.hero p{
+  margin-top:16px;
+  font-size:18px;
+  color:var(--muted);
+}
+
+.parallax-bg{
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 30% 30%,rgba(0,0,0,0.05),transparent 50%);
+  transform:translateY(0);
+  transition:transform .2s ease-out;
+  pointer-events:none;
+}
+
+/* Container */
 
 .container{
   max-width:1100px;
-  margin:70px auto;
+  margin:0 auto 100px;
   padding:0 24px;
 }
 
-/* Header */
-
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:50px;
-}
-
-.title{
-  font-size:22px;
-  font-weight:600;
-  letter-spacing:-0.2px;
-}
-
-.subtitle{
-  font-size:14px;
-  color:var(--muted);
-  margin-top:6px;
-}
-
-.social a{
-  color:var(--text);
-  font-size:18px;
-  margin-left:18px;
-  text-decoration:none;
-  transition:opacity .2s;
-}
-
-.social a:hover{
-  opacity:.5;
-}
-
-/* Segmented Control */
-
-.segmented{
-  display:inline-flex;
-  background:#e9e9ed;
-  border-radius:999px;
-  padding:4px;
-  margin-bottom:35px;
-}
-
-.segmented button{
-  border:none;
-  background:transparent;
-  padding:8px 18px;
-  border-radius:999px;
-  font-size:13px;
-  cursor:pointer;
-  color:var(--muted);
-}
-
-.segmented button.active{
-  background:white;
-  color:var(--text);
-  box-shadow:0 1px 3px rgba(0,0,0,0.08);
-}
-
-/* Sorting */
-
-.sort{
-  float:right;
-  margin-top:-50px;
-}
-
-.sort select{
-  border:1px solid var(--border);
-  border-radius:999px;
-  padding:8px 14px;
-  font-size:13px;
-  background:white;
-}
-
-/* Cards */
-
 .projects{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:26px;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:32px;
 }
 
+/* Glass Cards */
+
 .card{
-  background:var(--card);
+  backdrop-filter:blur(20px);
+  background:var(--glass);
   border:1px solid var(--border);
-  border-radius:var(--radius);
-  padding:22px;
-  transition:.25s ease;
+  border-radius:28px;
+  padding:28px;
+  transition:transform .3s ease;
 }
 
 .card:hover{
-  transform:translateY(-6px);
+  transform:translateY(-10px);
 }
 
 .card h3{
-  font-size:16px;
-  font-weight:600;
-  margin-bottom:12px;
+  font-size:18px;
+  margin-bottom:10px;
 }
 
 .meta{
   font-size:12px;
   color:var(--muted);
-  display:flex;
-  gap:12px;
-  margin-bottom:16px;
+  margin-bottom:12px;
 }
 
-.badge{
-  background:#f2f2f2;
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:12px;
+}
+
+.tag{
+  font-size:11px;
   padding:4px 10px;
   border-radius:999px;
+  background:rgba(255,255,255,0.25);
 }
 
-/* Buttons */
+body.dark .tag{
+  background:rgba(255,255,255,0.08);
+}
+
+.readme{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:16px;
+  line-height:1.5;
+}
 
 .actions{
   display:flex;
@@ -167,21 +146,16 @@ body{
 
 .btn{
   flex:1;
-  border-radius:12px;
   padding:10px;
-  font-size:13px;
-  cursor:pointer;
+  border-radius:14px;
   border:1px solid var(--border);
-  background:white;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:6px;
-  transition:.2s;
+  background:transparent;
+  cursor:pointer;
+  font-size:13px;
 }
 
 .btn:hover{
-  background:#f2f2f2;
+  background:rgba(255,255,255,0.2);
 }
 
 /* Modal */
@@ -191,7 +165,7 @@ body{
   position:fixed;
   inset:0;
   background:rgba(0,0,0,.5);
-  backdrop-filter:blur(8px);
+  backdrop-filter:blur(10px);
   justify-content:center;
   align-items:center;
   padding:20px;
@@ -201,111 +175,108 @@ body{
 .modal-box{
   width:100%;
   max-width:950px;
-  background:white;
-  border-radius:24px;
+  background:var(--bg);
+  border-radius:28px;
   overflow:hidden;
-  animation:fadeIn .25s ease;
-}
-
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:translateY(0)}
 }
 
 .modal-header{
   display:flex;
   justify-content:space-between;
-  align-items:center;
   padding:18px 22px;
   border-bottom:1px solid var(--border);
-}
-
-.modal-actions i{
-  margin-left:18px;
-  cursor:pointer;
-  color:var(--muted);
-}
-
-.modal-actions i:hover{
-  color:var(--text);
-}
-
-.modal-body{
-  max-height:70vh;
-  overflow:auto;
 }
 
 pre{
   margin:0;
   padding:24px;
+  max-height:70vh;
+  overflow:auto;
   font-size:13px;
 }
 
-/* Footer */
+/* Ripple */
 
-.footer{
-  margin-top:90px;
-  text-align:center;
-  color:var(--muted);
-  font-size:13px;
+.ripple{
+  position:fixed;
+  border-radius:50%;
+  transform:scale(0);
+  animation:ripple .6s linear;
+  background:rgba(255,255,255,.4);
+  pointer-events:none;
+  z-index:2000;
+}
+
+@keyframes ripple{
+  to{
+    transform:scale(20);
+    opacity:0;
+  }
 }
 </style>
 </head>
 <body>
 
+<section class="hero">
+  <div class="parallax-bg" id="parallax"></div>
+  <h1>Codebase</h1>
+  <p>Minimal. Structured. Intentional.</p>
+</section>
+
 <div class="container">
-
-  <div class="header">
-    <div>
-      <div class="title">MaybeSurya.dev</div>
-      <div class="subtitle">Personal Codebase Showcase</div>
-    </div>
-
-    <div class="social">
-      <a href="https://github.com/MaybeSurya" target="_blank"><i class="fa-brands fa-github"></i></a>
-      <a href="https://linkedin.com/in/MaybeSurya" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-      <a href="https://MaybeSurya.dev" target="_blank"><i class="fa-solid fa-globe"></i></a>
-    </div>
-  </div>
-
-  <div class="segmented">
-    <button onclick="setCategory('all')" class="active">All</button>
-    <button onclick="setCategory('c')">C</button>
-    <button onclick="setCategory('cpp')">C++</button>
-  </div>
-
-  <div class="sort">
-    <select onchange="setSort(this.value)">
-      <option value="name">Name</option>
-      <option value="size">Size</option>
-    </select>
-  </div>
-
   <div class="projects" id="projects"></div>
-
-  <div class="footer">© 2026 MaybeSurya</div>
 </div>
 
 <div class="modal" id="modal">
   <div class="modal-box">
     <div class="modal-header">
       <strong id="modalTitle"></strong>
-      <div class="modal-actions">
+      <div>
         <i class="fa-regular fa-copy" onclick="copyCode()"></i>
         <i class="fa-solid fa-xmark" onclick="closeModal()"></i>
       </div>
     </div>
-    <div class="modal-body">
-      <pre><code id="codeBlock"></code></pre>
-    </div>
+    <pre><code id="codeBlock"></code></pre>
   </div>
 </div>
 
 <script>
 const repo="MaybeSurya/c";
 let files=[];
-let category="all";
-let sortType="name";
+
+/* Parallax */
+window.addEventListener("scroll",()=>{
+  document.getElementById("parallax")
+    .style.transform=`translateY(${window.scrollY*0.2}px)`;
+});
+
+/* Theme Ripple */
+function toggleTheme(e){
+  const ripple=document.createElement("span");
+  ripple.classList.add("ripple");
+  ripple.style.left=e.clientX+"px";
+  ripple.style.top=e.clientY+"px";
+  document.body.appendChild(ripple);
+  setTimeout(()=>ripple.remove(),600);
+
+  document.body.classList.toggle("dark");
+  localStorage.setItem("theme",
+    document.body.classList.contains("dark")?"dark":"light");
+
+  document.getElementById("prism-theme").href =
+    document.body.classList.contains("dark")
+    ? "https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+    : "https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css";
+}
+
+document.body.addEventListener("dblclick",toggleTheme);
+
+(function initTheme(){
+  const saved=localStorage.getItem("theme");
+  if(saved==="dark") document.body.classList.add("dark");
+})();
+
+/* Fetch */
 
 async function fetchProjects(){
   const res=await fetch(`https://api.github.com/repos/${repo}/contents`);
@@ -313,44 +284,49 @@ async function fetchProjects(){
   render();
 }
 
-function setCategory(cat){
-  category=cat;
-  document.querySelectorAll(".segmented button").forEach(b=>b.classList.remove("active"));
-  event.target.classList.add("active");
-  render();
+/* Detect tags from comments */
+function extractTags(code){
+  const firstLines=code.split("\n").slice(0,10).join(" ");
+  const keywords=["algorithm","sorting","file","data","tree","graph","math","game"];
+  return keywords.filter(k=>firstLines.toLowerCase().includes(k));
 }
 
-function setSort(val){
-  sortType=val;
-  render();
+/* Per-file README detection */
+async function getReadmeForFile(file){
+  const base=file.name.replace(/\.(c|cpp)$/,"");
+  try{
+    const res=await fetch(`https://api.github.com/repos/${repo}/contents/${base}.md`);
+    if(res.ok){
+      const data=await res.json();
+      return atob(data.content).slice(0,180)+"...";
+    }
+  }catch{}
+  return "";
 }
 
-function render(){
-  let list=files.filter(f=>f.name.endsWith(".c")||f.name.endsWith(".cpp"));
+async function render(){
+  const container=document.getElementById("projects");
+  container.innerHTML="";
 
-  if(category!=="all"){
-    list=list.filter(f=>category==="c"?f.name.endsWith(".c"):f.name.endsWith(".cpp"));
-  }
+  for(const f of files.filter(f=>f.name.endsWith(".c")||f.name.endsWith(".cpp"))){
 
-  if(sortType==="size") list.sort((a,b)=>b.size-a.size);
-  else list.sort((a,b)=>a.name.localeCompare(b.name));
+    const codeRes=await fetch(f.download_url);
+    const code=await codeRes.text();
+    const tags=extractTags(code);
+    const readme=await getReadmeForFile(f);
 
-  const c=document.getElementById("projects");
-  c.innerHTML="";
-
-  list.forEach(f=>{
-    const lang=f.name.endsWith(".c")?"C":"C++";
     const size=(f.size/1024).toFixed(1)+" KB";
 
-    c.innerHTML+=`
+    container.innerHTML+=`
       <div class="card">
         <h3>${f.name}</h3>
-        <div class="meta">
-          <span class="badge">${lang}</span>
-          <span>${size}</span>
+        <div class="meta">${size}</div>
+        <div class="tags">
+          ${tags.map(t=>`<span class="tag">${t}</span>`).join("")}
         </div>
+        <div class="readme">${readme}</div>
         <div class="actions">
-          <button class="btn" onclick="preview('${f.download_url}','${f.name}','${lang}')">
+          <button class="btn" onclick="preview('${f.download_url}','${f.name}')">
             <i class="fa-regular fa-eye"></i> Preview
           </button>
           <a class="btn" href="${f.download_url}" download>
@@ -358,20 +334,19 @@ function render(){
           </a>
         </div>
       </div>`;
-  });
+  }
 }
 
-async function preview(url,name,lang){
+/* Preview */
+
+async function preview(url,name){
   const res=await fetch(url);
   const txt=await res.text();
   document.getElementById("modalTitle").textContent=name;
-
   const block=document.getElementById("codeBlock");
   block.textContent=txt;
-  block.className=lang==="C"?"language-c":"language-cpp";
-
+  block.className=name.endsWith(".c")?"language-c":"language-cpp";
   Prism.highlightElement(block);
-
   document.getElementById("modal").style.display="flex";
 }
 
@@ -380,12 +355,10 @@ function closeModal(){
 }
 
 function copyCode(){
-  const txt=document.getElementById("codeBlock").textContent;
-  navigator.clipboard.writeText(txt);
+  navigator.clipboard.writeText(document.getElementById("codeBlock").textContent);
 }
 
 fetchProjects();
 </script>
-
 </body>
 </html>
